@@ -1,0 +1,39 @@
+<!--
+  Generated template for the MeetingsListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Meetings</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingText="Swipe down to refresh the meetings"
+      refreshingText="Refreshing meetings ...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="meetingsLoaded; else meetingsLoadFailed">
+    <ion-list>
+      <page-meeting (press)="pressEvent(meeting)" *ngFor="let meeting of meetings" [meeting]="meeting" (click)="showMeetingDetails(meeting)"></page-meeting>
+    </ion-list>
+  </div>
+  <ng-template #meetingsLoadFailed>
+    <div class="flb">
+      <div class="Aligner-item Aligner-item--top"></div>
+      <label>Sorry, we couldn't get the meetings list ...</label>
+      <label>Swipe down to refresh!</label>
+      <div class="Aligner-item Aligner-item--bottom"></div>
+    </div>
+  </ng-template>
+</ion-content>
+<ion-footer *ngIf="meetingsLoaded">
+  <ion-fab right bottom >
+    <button ion-fab (click)="createMeeting()"><ion-icon name=""><b>+</b></ion-icon></button>
+  </ion-fab>
+</ion-footer>
+
+
